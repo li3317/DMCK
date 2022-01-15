@@ -1,6 +1,7 @@
 package edu.uchicago.cs.ucare.dmck.zookeeper;
 
 import java.io.FileInputStream;
+import java.util.Arrays;
 import java.util.Properties;
 import org.apache.log4j.Logger;
 import edu.uchicago.cs.ucare.dmck.server.SpecVerifier;
@@ -106,6 +107,7 @@ public class ZKVerifier extends SpecVerifier {
         }
       }
     } catch (Exception e) {
+      LOG.info(e.getMessage());
       LOG.error("Failed to check data consistency.");
       return false;
     }

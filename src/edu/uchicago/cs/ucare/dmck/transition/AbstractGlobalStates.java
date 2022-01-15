@@ -2,6 +2,8 @@ package edu.uchicago.cs.ucare.dmck.transition;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import edu.uchicago.cs.ucare.dmck.server.ModelCheckingServerAbstract;
@@ -26,6 +28,7 @@ public class AbstractGlobalStates implements Serializable {
       int nodeId = ((PacketSendTransition) event).getPacket().getToId();
       executingNodeState = abstractGlobalStateBefore[nodeId];
       this.event = ((PacketSendTransition) event).clone();
+      this.event.setVectorClock(event.getVectorClock());
     } else if (event instanceof AbstractNodeOperationTransition) {
       int nodeId = ((AbstractNodeOperationTransition) event).id;
       if (nodeId > -1) {
@@ -39,10 +42,13 @@ public class AbstractGlobalStates implements Serializable {
       int nodeId = ((NodeCrashTransition) event).id;
       executingNodeState = abstractGlobalStateBefore[nodeId];
       this.event = ((NodeCrashTransition) event).clone();
+      this.event.setVectorClock(event.getVectorClock());
     } else if (event instanceof NodeStartTransition) {
       int nodeId = ((NodeStartTransition) event).id;
       executingNodeState = abstractGlobalStateBefore[nodeId];
       this.event = ((NodeStartTransition) event).clone();
+      LOG.info("vc: " + Arrays.deepToString(event.getVectorClock()) + " " + event.getTransitionId());
+      this.event.setVectorClock(event.getVectorClock());
     } else {
       LOG.error("Event=" + event.toString() + " cannot be abstracted yet. Event class="
           + event.getClass());
@@ -227,7 +233,7 @@ public class AbstractGlobalStates implements Serializable {
     for (int i = 0; i < abstractGlobalStateBefore.length; i++) {
       result += "n-" + i + abstractGlobalStateBefore[i].toString() + "\n";
     }
-    result += "Abs Executed Ev:" + event.toString() + "\n";
+    result += "Abs Executed Ev:" + event.toString() + "\n"; // vectorclock null
     result += "at state=" + executingNodeState.toString() + "\n";
     result += "GS After:\n";
     for (int i = 0; i < abstractGlobalStateAfter.length; i++) {

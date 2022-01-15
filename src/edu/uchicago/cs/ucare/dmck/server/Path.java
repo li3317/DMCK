@@ -65,7 +65,12 @@ public class Path extends LinkedList<Transition> implements Serializable {
 
   @Override
   public Path clone() {
-    return new Path(this);
+    Path clone = new Path(this);
+    for (int i = 0; i < this.size(); i++) {
+      clone.get(i).setVectorClock(clone.get(i).getVectorClock());
+    }
+    return clone;
+//    return new Path(this);
   }
 
   @Deprecated
@@ -85,11 +90,20 @@ public class Path extends LinkedList<Transition> implements Serializable {
   // events.
   public void addTransition(Transition ev) {
     if (ev instanceof PacketSendTransition) {
-      this.add(((PacketSendTransition) ev).clone());
+      PacketSendTransition tr = ((PacketSendTransition) ev).clone();
+      tr.setVectorClock(ev.getVectorClock());
+      this.add(tr);
+//      this.add(((PacketSendTransition) ev).clone());
     } else if (ev instanceof NodeCrashTransition) {
-      this.add(((NodeCrashTransition) ev).clone());
+      NodeCrashTransition tr = ((NodeCrashTransition) ev).clone();
+      tr.setVectorClock(ev.getVectorClock());
+      this.add(tr);
+//      this.add(((NodeCrashTransition) ev).clone());
     } else if (ev instanceof NodeStartTransition) {
-      this.add(((NodeStartTransition) ev).clone());
+      NodeStartTransition tr = ((NodeStartTransition) ev).clone();
+      tr.setVectorClock(ev.getVectorClock());
+      this.add(tr);
+//      this.add(((NodeStartTransition) ev).clone());
     } else {
       throw new RuntimeException("Add unknown transition ev=" + ev.toString());
     }

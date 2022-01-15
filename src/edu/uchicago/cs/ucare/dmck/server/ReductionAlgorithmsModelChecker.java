@@ -1913,11 +1913,16 @@ public abstract class ReductionAlgorithmsModelChecker extends ModelCheckingServe
         Transition concreteEvent = null;
         if (nextEvent instanceof NodeCrashTransition) {
           concreteEvent = ((NodeCrashTransition) nextEvent).clone();
+          concreteEvent.setVectorClock(nextEvent.getVectorClock());
         } else if (nextEvent instanceof NodeStartTransition) {
           concreteEvent = ((NodeStartTransition) nextEvent).clone();
+//          LOG.info(concreteEvent.toString());
+//          LOG.info(nextEvent.toString());
+          concreteEvent.setVectorClock(nextEvent.getVectorClock());
         } else if (nextEvent instanceof PacketSendTransition
             && (reductionAlgorithms.contains("symmetry") || quickEventReleaseMode)) {
           concreteEvent = ((PacketSendTransition) nextEvent).clone();
+          concreteEvent.setVectorClock(nextEvent.getVectorClock());
         }
 
         // Get List of Latest Events in Queue
