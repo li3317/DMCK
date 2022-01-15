@@ -1,6 +1,7 @@
 package edu.uchicago.cs.ucare.dmck.transition;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import edu.uchicago.cs.ucare.dmck.server.ModelCheckingServerAbstract;
@@ -44,6 +45,8 @@ public abstract class Transition implements Serializable {
   }
 
   public abstract int[][] getVectorClock();
+
+  public abstract void setVectorClock(int[][] vectorClock);
 
   public Transition getSerializable(int numNode) {
     if (this instanceof PacketSendTransition) {
@@ -91,6 +94,11 @@ public abstract class Transition implements Serializable {
     } else {
       return null;
     }
+  }
+
+
+  public String toString() {
+    return "transition id=" + id + " " + Arrays.deepToString(this.getVectorClock());
   }
 
 }

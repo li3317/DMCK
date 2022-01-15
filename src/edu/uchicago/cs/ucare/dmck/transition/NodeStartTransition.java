@@ -31,12 +31,13 @@ public class NodeStartTransition extends NodeOperationTransition {
   }
 
   public String toString() {
-    return "nodestart id=" + id + " " + Arrays.deepToString(vectorClock);
+//    return "nodestart id=" + id + " " + Arrays.deepToString(vectorClock);
+    return "nodestart id=" + id + " " + Arrays.deepToString(this.getVectorClock());
   }
 
   @Override
   public boolean apply() {
-    LOG.info("Start node " + id);
+    LOG.info("Start node " + id + " " + Arrays.deepToString(vectorClock));
     if (dmck.runNode(id, vectorClock)) {
       dmck.numCurrentReboot++;
       return true;
@@ -76,20 +77,20 @@ public class NodeStartTransition extends NodeOperationTransition {
     return new NodeStartTransition(this.dmck, this.id);
   }
 
-  // protected int[][] vectorClock;
-  //
-  // @Override
-  // public int[][] getVectorClock() {
-  // return vectorClock;
-  // }
-  //
-  // public void setVectorClock(int[][] vectorClock) {
-  // this.vectorClock = new int[vectorClock.length][vectorClock.length];
-  // for (int i = 0; i < vectorClock.length; ++i) {
-  // for (int j = 0; j < vectorClock.length; ++j) {
-  // this.vectorClock[i][j] = vectorClock[i][j];
-  // }
-  // }
-  // }
+//  protected int[][] vectorClock;
+//
+  @Override
+  public int[][] getVectorClock() {
+    return vectorClock;
+  }
+//
+//  public void setVectorClock(int[][] vectorClock) {
+//    this.vectorClock = new int[vectorClock.length][vectorClock.length];
+//    for (int i = 0; i < vectorClock.length; ++i) {
+//      for (int j = 0; j < vectorClock.length; ++j) {
+//        this.vectorClock[i][j] = vectorClock[i][j];
+//      }
+//    }
+//  }
 
 }

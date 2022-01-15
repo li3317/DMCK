@@ -51,7 +51,8 @@ public class NodeCrashTransition extends NodeOperationTransition {
   }
 
   public String toString() {
-    return "nodecrash id=" + id + " " + Arrays.deepToString(vectorClock);
+//    return "nodecrash id=" + id + " " + Arrays.deepToString(vectorClock);
+    return "nodecrash id=" + id + " " + Arrays.deepToString(this.getVectorClock());
   }
 
   public int getId() {
@@ -90,20 +91,20 @@ public class NodeCrashTransition extends NodeOperationTransition {
     return new NodeCrashTransition(this.dmck, this.id);
   }
 
-  // protected int[][] vectorClock;
-  //
-  // @Override
-  // public int[][] getVectorClock() {
-  // return vectorClock;
-  // }
-  //
-  // public void setVectorClock(int[][] vectorClock) {
-  // this.vectorClock = new int[vectorClock.length][vectorClock.length];
-  // for (int i = 0; i < vectorClock.length; ++i) {
-  // for (int j = 0; j < vectorClock.length; ++j) {
-  // this.vectorClock[i][j] = vectorClock[i][j];
-  // }
-  // }
-  // }
+//   protected int[][] vectorClock;
+//
+  @Override
+  public int[][] getVectorClock() {
+    return vectorClock;
+  }
+//
+//  public void setVectorClock(int[][] vectorClock) {
+//    this.vectorClock = new int[vectorClock.length][vectorClock.length];
+//    for (int i = 0; i < vectorClock.length; ++i) {
+//      for (int j = 0; j < vectorClock.length; ++j) {
+//        this.vectorClock[i][j] = vectorClock[i][j];
+//      }
+//    }
+//  }
 
 }

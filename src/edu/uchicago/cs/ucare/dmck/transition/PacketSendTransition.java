@@ -112,6 +112,11 @@ public class PacketSendTransition extends Transition implements Serializable {
   }
 
   @Override
+  public void setVectorClock(int[][] vectorClock) {
+
+  }
+
+  @Override
   public synchronized PacketSendTransition clone() {
     return new PacketSendTransition(this.dmck, this.packet.clone());
   }
