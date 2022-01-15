@@ -8,3 +8,6 @@ ivy
 lib/*.jar
 target-sys.conf
 *.iml
+dmck-target-systems/cassandra-6023
+dmck-target-systems/zookeeper-335
+.idea

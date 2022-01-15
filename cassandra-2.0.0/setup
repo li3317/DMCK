@@ -72,7 +72,7 @@ while [ $i -lt $num_node ]; do
   done
   sed -i -e "61s/.*/  - seeds: \"$seeds\"/" $working_dir/config/cass$i/cassandra.yaml
 
-  initial_token=`python2 -c "print(str(((2**64 / $num_node) * $i) - 2**63))"`
+  initial_token=`python -c "print(str(((2**64 / $num_node) * $i) - 2**63))"`
   sed -i -e "32s/.*/initial_token: $initial_token/" $working_dir/config/cass$i/cassandra.yaml
 
   i=`expr $i + 1`
