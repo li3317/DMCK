@@ -132,6 +132,7 @@ public class DMCKRunner {
         Constructor<? extends ModelCheckingServerAbstract> guideDMCKConstructor =
             dmckStrategyClass.getConstructor(String.class, FileWatcher.class, Integer.TYPE,
                 String.class, File.class, String.class, WorkloadDriver.class, String.class);
+        LOG.debug("dmck constructor 1");
         dmck = guideDMCKConstructor.newInstance(dmckName, fileWatcher, numNode, testRecordDir,
             pathFile, workingDir, workloadDriver, ipcDir);
       } else {
@@ -139,6 +140,7 @@ public class DMCKRunner {
             dmckStrategyClass.getConstructor(String.class, FileWatcher.class, Integer.TYPE,
                 Integer.TYPE, Integer.TYPE, String.class, String.class, String.class,
                 WorkloadDriver.class, String.class);
+        LOG.debug("dmck constructor 2");
         dmck = dmckConstructor.newInstance(dmckName, fileWatcher, numNode, numCrash, numReboot,
             testRecordDir, traversalRecordDir, workingDir, workloadDriver, ipcDir);
       }
@@ -179,7 +181,7 @@ public class DMCKRunner {
         workloadDriver.resetTest(testId);
         dmck.setTestId(testId);
         dmck.startEnsemble();
-        dmck.waitOnFirstSteadyStates();
+        dmck.waitOnFirstSteadyStates(); // steady state -> all nodes are ready, ex. when system start up
 
         // DMCK waits for all events to be exercised
         while (!waitingFlag.exists()) {

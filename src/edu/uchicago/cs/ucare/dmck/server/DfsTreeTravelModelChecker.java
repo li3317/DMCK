@@ -15,9 +15,11 @@ public class DfsTreeTravelModelChecker extends TreeTravelModelChecker {
 
   @Override
   public Transition nextTransition(LinkedList<Transition> transitions) {
+    LOG.debug("num trans: " + transitions.size());
     ListIterator<Transition> iter = transitions.listIterator();
     while (iter.hasNext()) {
       Transition transition = iter.next();
+      // check if .finished file is generated
       if (!exploredBranchRecorder.isSubtreeBelowChildFinished(transition.getTransitionId())) {
         return transition;
       }

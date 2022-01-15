@@ -27,8 +27,12 @@ class PacketSendInstructionTransition extends InstructionTransition {
 
   @Override
   Transition getRealTransition(ModelCheckingServerAbstract dmck) {
+    LOG.debug("to real transition from dmck/server");
+    LOG.debug("num trans: " + dmck.currentEnabledTransitions.size());
     for (Object t : dmck.currentEnabledTransitions) {
+      LOG.debug(String.valueOf(t.getClass()));
       if (t instanceof PacketSendTransition) {
+        LOG.debug("packet send transition");
         PacketSendTransition p = (PacketSendTransition) t;
         if (p.getTransitionId() == packetId) {
           return p;
@@ -110,6 +114,11 @@ class ExitInstructionTransaction extends InstructionTransition {
       @Override
       public int[][] getVectorClock() {
         throw new UnsupportedOperationException("Not implemented");
+      }
+
+      @Override
+      public void setVectorClock(int[][] vectorClock) {
+
       }
     };
   }

@@ -21,6 +21,7 @@ public abstract class EvaluationModelChecker extends ReductionAlgorithmsModelChe
       WorkloadDriver workloadDriver, String ipcDir) {
     super(dmckName, fileWatcher, numNode, numCrash, numReboot, globalStatePathDir, packetRecordDir,
         cacheDir, workloadDriver, ipcDir);
+    LOG.debug("evaluation MC constructor");
   }
 
   public abstract boolean isLMDependent(LocalState state, Event e1, Event e2);
